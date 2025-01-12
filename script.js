@@ -8,7 +8,8 @@ const startButton = document.getElementById('start');
 const resetButton = document.getElementById('reset');
 const workButton = document.getElementById('work');
 const breakButton = document.getElementById('break');
-const add5Button = document.getElementById('add5');
+const addTimeButton = document.getElementById('addTime');
+const minutesToAddInput = document.getElementById('minutesToAdd');
 
 function updateDisplay() {
     const minutes = Math.floor(timeLeft / 60);
@@ -49,9 +50,12 @@ function resetTimer() {
     document.title = 'Pomodoro Timer';
 }
 
-function addFiveMinutes() {
-    timeLeft += 300;
-    updateDisplay();
+function addCustomMinutes() {
+    const minutesToAdd = parseInt(minutesToAddInput.value) || 0;
+    if (minutesToAdd > 0) {
+        timeLeft += minutesToAdd * 60;
+        updateDisplay();
+    }
 }
 
 function switchMode(mode) {
@@ -65,7 +69,7 @@ startButton.addEventListener('click', startTimer);
 resetButton.addEventListener('click', resetTimer);
 workButton.addEventListener('click', () => switchMode('work'));
 breakButton.addEventListener('click', () => switchMode('break'));
-add5Button.addEventListener('click', addFiveMinutes);
+addTimeButton.addEventListener('click', addCustomMinutes);
 
 // Initialize display
 updateDisplay(); 
