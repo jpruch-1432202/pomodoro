@@ -47,6 +47,7 @@ h1 {
 .controls button {
     background-color: #4b2e83;
     color: white;
+    min-width: 80px;
 }
 
 .controls button:hover {

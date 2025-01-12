@@ -1,4 +1,4 @@
-let timeLeft;
+let timeLeft = 25 * 60;
 let timerId = null;
 let isWorkMode = true;
 
@@ -8,17 +8,15 @@ const startButton = document.getElementById('start');
 const resetButton = document.getElementById('reset');
 const workButton = document.getElementById('work');
 const breakButton = document.getElementById('break');
+const add5Button = document.getElementById('add5');
 
 function updateDisplay() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
     const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     
-    // Update the display in the timer
     minutesDisplay.textContent = minutes.toString().padStart(2, '0');
     secondsDisplay.textContent = seconds.toString().padStart(2, '0');
-    
-    // Update the browser title - show time regardless of timer state
     document.title = `(${timeString}) Pomodoro Timer`;
 }
 
@@ -51,6 +49,11 @@ function resetTimer() {
     document.title = 'Pomodoro Timer';
 }
 
+function addFiveMinutes() {
+    timeLeft += 300;
+    updateDisplay();
+}
+
 function switchMode(mode) {
     isWorkMode = mode === 'work';
     workButton.classList.toggle('active', isWorkMode);
@@ -58,12 +61,11 @@ function switchMode(mode) {
     resetTimer();
 }
 
-// Initialize
-timeLeft = 25 * 60;
-updateDisplay();
-
-// Event listeners
 startButton.addEventListener('click', startTimer);
 resetButton.addEventListener('click', resetTimer);
 workButton.addEventListener('click', () => switchMode('work'));
-breakButton.addEventListener('click', () => switchMode('break')); 
+breakButton.addEventListener('click', () => switchMode('break'));
+add5Button.addEventListener('click', addFiveMinutes);
+
+// Initialize display
+updateDisplay(); 
